@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Volume2, VolumeX } from "lucide-react";
+import { Heart, Pause, Play, Volume2, VolumeX } from "lucide-react";
 import QuoteDisplay from "@/components/quote-display";
 import FinalCard from "@/components/final-card";
 import Preloader from "@/components/preloader";
@@ -66,7 +66,7 @@ export default function Home() {
 		null
 	);
 	const [showFinalCard, setShowFinalCard] = useState(false);
-	const [isMuted, setIsMuted] = useState(false);
+	const [isPlaying, setisPlaying] = useState(false);
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	// Simulate loading
@@ -84,6 +84,7 @@ export default function Home() {
 			audioRef.current.volume = 0.3;
 			audioRef.current.play().catch(error => {
 				console.log("Audio autoplay was prevented:", error);
+				setisPlaying(true);
 			});
 		}
 	}, [loading]);
@@ -115,9 +116,13 @@ export default function Home() {
 	};
 
 	const toggleMute = () => {
+		setisPlaying(!isPlaying);
 		if (audioRef.current) {
-			audioRef.current.muted = !audioRef.current.muted;
-			setIsMuted(!isMuted);
+			if (isPlaying) {
+				audioRef.current.play();
+			} else {
+				audioRef.current.pause();
+			}
 		}
 	};
 
@@ -149,18 +154,20 @@ export default function Home() {
 								onClick={toggleMute}
 								// className="text-rose-500"
 							>
-								{isMuted ? <VolumeX /> : <Volume2 />}
+								{isPlaying ? <Play /> : <Pause />}
 							</Button>
 						</div>
 					</div>
 
 					<div className="text-center text-sm text-rose-700 mt-4">
-						<p>Made with ♥ for Feolami</p>
+						<p>
+							Made with <Heart className="animate-bounce inline mx-2" /> for Feolami
+						</p>
 					</div>
 				</div>
 			)}
 
-			<audio ref={audioRef} loop muted={isMuted} className="hidden">
+			<audio ref={audioRef} loop className="hidden">
 				<source
 					src="https://res.cloudinary.com/tomiwadev/video/upload/v1613831178/song_p5dr1p.mp3"
 					type="audio/mpeg"
