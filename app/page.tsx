@@ -44,15 +44,23 @@ export default function Home() {
 			(_, i) => i
 		).filter(index => !shownQuotes.includes(index));
 
-		// If all quotes have been shown, show the final card
 		if (availableIndices.length === 0) {
 			setShowFinalCard(true);
 			return;
 		}
 
-		// Select random quote from available ones
-		const randomIndex = Math.floor(Math.random() * availableIndices.length);
-		const newQuoteIndex = availableIndices[randomIndex];
+		const filteredIndices =
+			currentQuoteIndex !== null
+				? availableIndices.filter(
+						index => quotes[index].author !== quotes[currentQuoteIndex].author
+				  )
+				: availableIndices;
+
+		const indicesToUse =
+			filteredIndices.length > 0 ? filteredIndices : availableIndices;
+
+		const randomIndex = Math.floor(Math.random() * indicesToUse.length);
+		const newQuoteIndex = indicesToUse[randomIndex];
 
 		setCurrentQuoteIndex(newQuoteIndex);
 		setShownQuotes(prev => [...prev, newQuoteIndex]);
@@ -75,15 +83,13 @@ export default function Home() {
 		}
 	};
 
-	console.log(isPlaying);
-
 	return (
 		<main className="flex min-h-screen overflow-hidden flex-col items-center justify-center p-4 bg-gradient-to-br from-rose-50 to-pink-100">
 			{loading ? (
 				<Preloader />
 			) : (
 				<div className="w-full max-w-md mx-auto">
-					<div className="relative bg-transparent rounded-2xl mb-6 min-h-[350px] flex flex-col">
+					<div className="relative bg-transparent rounded-2xl mb-6 min-h-[400px] flex flex-col">
 						{/* Show either the final card or the current quote */}
 						{showFinalCard ? (
 							<FinalCard onReset={resetQuotes} />
@@ -119,10 +125,7 @@ export default function Home() {
 			)}
 
 			<audio ref={audioRef} loop className="hidden">
-				<source
-					src="https://res.cloudinary.com/tomiwadev/video/upload/v1613831178/song_p5dr1p.mp3"
-					type="audio/mpeg"
-				/>
+				<source src="/audio.mp3" type="audio/mpeg" />
 				Your browser does not support the audio element.
 			</audio>
 		</main>
