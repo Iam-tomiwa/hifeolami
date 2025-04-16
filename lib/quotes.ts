@@ -2,7 +2,12 @@
 export const quotes = [
 	{
 		text:
-			"I just wanted to say how much I’m going to miss you. Watching you step into this new chapter makes me so proud, even though it’s hard to imagine not having you close by. You’ve always been one of the most driven, beautiful souls I know, and I have no doubt you’ll thrive wherever you go. I’ll always be cheering you on from here. Love youuu",
+			"I just wanted to say how much I’m going to miss you. Watching you step into this new chapter makes me so proud, even though it’s hard to imagine not having you close by.",
+		author: "Deborah",
+	},
+	{
+		text:
+			"You’ve always been one of the most driven, beautiful souls I know, and I have no doubt you’ll thrive wherever you go. I’ll always be cheering you on from here. Love youuu.",
 		author: "Deborah",
 	},
 	{
