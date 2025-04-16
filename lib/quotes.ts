@@ -12,7 +12,12 @@ export const quotes = [
 	},
 	{
 		text:
-			"Hi, Feolami. I'm going to miss you so much, but even more, I'm going to miss seeing you on your black maxi skirt that gives you that special shine. I hope you're taking it along so you can send loads of pictures whenever you wear it. \n My regards to your Russian husband. Please name your kid after me. I love you❤️",
+			"Hi, Feolami. I'm going to miss you so much, but even more, I'm going to miss seeing you on your black maxi skirt that gives you that special shine. I hope you're taking it along so you can send loads of pictures whenever you wear it.",
+		author: "Sam-J",
+	},
+	{
+		text:
+			"My regards to your Russian husband. Please name your kid after me. I love you❤️",
 		author: "Sam-J",
 	},
 	{
